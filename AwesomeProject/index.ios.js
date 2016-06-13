@@ -5,28 +5,44 @@
  */
 
 import React, { Component } from 'react';
+import Main from './App/Components/Main';
+import Button from 'react-native-button';
 import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  TextInput,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
+  TouchableHighlight,
+  View,
+  WebView,
+  AlertIOS,
+  NavigatorIOS
 } from 'react-native';
 
+
 class AwesomeProject extends Component {
+  _onPressButtonGet(){
+    fetch("http://localhost:3000/test?search=nraboy", {method: "GET"})
+    .then((response) => response.json())
+    .then((responseData) =>{
+      AlertIOS.alert("GET Response",
+                "Search Query -> " + responseData.search)
+    })
+    .done();
+  }
+  _handlePress() {
+    console.log('Pressed!');
+  }
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
+      <NavigatorIOS
+        style={styles.container}
+        initialRoute={{
+          title: 'Github Notetaker',
+          component: Main
+        }} />
     );
   }
 }
@@ -34,19 +50,7 @@ class AwesomeProject extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+    backgroundColor: '#111',
   },
 });
 

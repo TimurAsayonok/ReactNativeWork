@@ -5,14 +5,13 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
   TouchableHighlight,
   Alert,
   View,
   WebView,
   AlertIOS,
-  NavigatorIOS
+  NavigatorIOS,
+  Image,
 } from 'react-native';
 
 class LoginView extends Component{
@@ -33,19 +32,26 @@ class LoginView extends Component{
     );
   }
   accept(){
-    Alert.alert('accept');
+    this.props.navigator.push({
+      title: 'Dashboard',
+      name: 'Dashboard',
+      passProps:{}
+    });
   }
   cancel(){
     console.log('Cansel');
   }
   render(){
     return(
-      <View style={styles.container}>
-        <Text>Login page</Text>
-        <TouchableHighlight style={styles.button} onPress={(this.onLogin.bind(this))}>
-          <Text style={styles.text}>Login</Text>
-        </TouchableHighlight>
-      </View>
+      <Image style={styles.container} source={{uri: 'https://images.unsplash.com/photo-1453781382334-20f5dfb0fb2e?format=auto&auto=compress&dpr=1&crop=entropy&fit=crop&w=1920&h=2880&q=80'}}>
+        <View>
+          <Text style={styles.title}>Login page</Text>
+          <TouchableHighlight style={styles.button} onPress={(this.onLogin.bind(this))}>
+            <Text style={styles.text}>Login</Text>
+          </TouchableHighlight>
+
+        </View>
+      </Image>
     )
   }
 }
@@ -53,21 +59,28 @@ class LoginView extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'stretch',
+    padding: 30
   },
   button: {
-    width: 300,
+    width: 250,
     height: 30,
     backgroundColor: '#5f9ea0',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 10,
+    marginTop: 60,
     marginBottom: 10,
     borderRadius: 8,
   },
   text: {
     color: '#fff',
+  },
+  title: {
+    backgroundColor: 'rgba(0,0,0,0)',
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: 20,
+    marginTop: 100,
   }
 })
 module.exports = LoginView;

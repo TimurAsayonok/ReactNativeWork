@@ -7,7 +7,7 @@
 import React, { Component } from 'react';
 import Main from './App/Components/Main';
 import Login from './App/Components/LoginView';
-import Dashboard from './App/Components/DashboardView';
+import Tabs from './App/Components/Tabs';
 import Button from 'react-native-button';
 import {
   AppRegistry,
@@ -55,7 +55,7 @@ class AwesomeProject extends Component {
       case 'Login':
         return (<Login navigator={navigator} route={route} />);
       case 'Dashboard':
-        return (<Dashboard navigator={navigator} route={route} />);
+        return (<Tabs navigator={navigator} route={route} />);
     }
   }
   render() {

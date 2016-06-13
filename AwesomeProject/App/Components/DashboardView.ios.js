@@ -2,6 +2,7 @@
 
 import React, {Component} from 'react';
 import Crypto from 'crypto-js';
+import ComicDetail from './ComicDetailView';
 import {
   AppRegistry,
   StyleSheet,
@@ -60,7 +61,7 @@ class DashboardView extends Component{
 
   renderComic(comic){
     return (
-      <TouchableHighlight>
+      <TouchableHighlight onPress={() => this.onComicPressed(comic)}>
         <Image source={{uri: comic.thumbnail.path+'.jpg'}} style={styles.backgroundImage}>
           <View style={styles.rightContainer}>
             <Text style={styles.title}>{comic.name}</Text>
@@ -69,6 +70,14 @@ class DashboardView extends Component{
         </Image>
       </TouchableHighlight>
     )
+  }
+
+  onComicPressed(comic){
+    this.props.navigator.push({
+      name: 'Details',
+      title: comic.name,
+      passProps: {comic: comic}
+    })
   }
 
   render(){

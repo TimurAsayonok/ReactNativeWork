@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import Button from 'react-native-button';
 import OpenGraphParser from 'react-native-opengraph-kit/OpenGraphParser';
+import OpenUrl from './App/Component/OpenUrl';
 import {
   AppRegistry,
   StyleSheet,
@@ -9,7 +10,6 @@ import {
   TextInput,
   TouchableHighlight,
   View,
-  Linking,
   Image,
 } from 'react-native';
 
@@ -26,7 +26,7 @@ class AwesomeProject extends Component {
       url: '',
       image: '',
       title: '',
-      siteName: ''
+      siteName: '',
     }
   }
   fetchUrl(){
@@ -45,23 +45,12 @@ class AwesomeProject extends Component {
                     image: data.image,
                     title: data.title,
                     description: data.description,
-                    siteName: data.site_name
+                    siteName: data.site_name,
                 });
                 console.log(this.state.description);
             }
         }
     );
-  }
-  openLink(url){
-    console.log(url);
-    Linking.canOpenURL(url)
-      .then(supported => {
-        if(supported){
-          Linking.openURL(url);
-        }else{
-          console.log('Dont know how to open URI')
-        }
-      });
   }
   renderLoadView(){
     return(
@@ -76,17 +65,17 @@ class AwesomeProject extends Component {
       }
       return(
         <View style={styles.preview}>
-        <TouchableHighlight
-          onPress={this.openLink.bind(this,this.state.url)}>
-        </TouchableHighlight>
           <Image source={{uri: this.state.image}} style={styles.image}>
             <Text style={styles.imageTitle}>
               {this.state.title}
             </Text>
           </Image>
           <Text style={styles.titleUrl}>{this.state.title}</Text>
-          <Text style={styles.url}>{this.state.url}</Text>
-          <Text style={styles.description}>{this.state.description} <Text style={styles.readMore}>Read More</Text></Text>
+          <OpenUrl url={this.state.url} textUrl={this.state.url}/>
+          <Text style={styles.description}>
+            {this.state.description}
+          </Text>
+          <OpenUrl url={this.state.url} textUrl={'Read More'} />
         </View>
       )
   }
@@ -158,12 +147,6 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     fontSize: 15,
     fontWeight: 'bold'
-  },
-  url: {
-    marginLeft: 5,
-    fontSize: 8,
-    color: '#1e90ff',
-    textDecorationLine: 'underline'
   },
   description: {
     marginLeft: 5,
